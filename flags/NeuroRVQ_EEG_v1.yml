@@ -1,0 +1,47 @@
+patch_size: 200
+n_patches: 256
+num_classes: 5
+n_code: 8192
+code_dim: 128
+embed_dim: 200
+
+weight_decay_finetuning: 1e-2
+warmup_epochs_finetuning: 4
+lr_finetuning: 5e-4
+layer_decay_finetuning: 0.975
+train_head_only_finetuning: False
+batch_size_finetuning: 32
+epoch_finetuning: 20
+model_name: NeuroRVQ
+
+in_chans_encoder: 1
+out_chans_encoder: 8
+depth_encoder: 12
+depth_decoder: 3
+decoder_out_dim: 200
+
+num_heads_tokenizer: 10
+mlp_ratio_tokenizer: 4
+qkv_bias_tokenizer: True
+drop_rate_tokenizer: 0.
+attn_drop_rate_tokenizer: 0.
+drop_path_rate_tokenizer: 0.
+init_values_tokenizer: 0.
+init_scale_tokenizer: 0.001
+
+use_for_pretraining: True
+
+in_chans_second_stage: 1
+out_chans_second_stage: 8
+depth_second_stage: 12
+num_heads_second_stage: 10
+mlp_ratio_second_stage: 4.
+qkv_bias_second_stage: True
+drop_rate_second_stage: 0.
+attn_drop_rate_second_stage: 0.
+drop_path_rate_second_stage: 0.
+init_values_second_stage: 1.e-5
+init_scale_second_stage: 0.001
+embed_dim_second_stage: 200
+
+
