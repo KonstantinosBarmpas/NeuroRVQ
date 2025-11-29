@@ -1,8 +1,12 @@
 <div align="center">
 
+<img src="images/banner.png" width="600">
+
 # 🧠NeuroRVQ: Multi-Scale EEG Tokenization for Generative Large Brainwave Models
 
 ** [Preprint](https://arxiv.org/abs/2510.13068) **
+
+<a href='https://arxiv.org/abs/2403.11641'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
 
 [Konstantinos Barmpas](https://www.barmpas.com)<sup>1,2</sup> &emsp; [Na Lee](https://www.linkedin.com/in/na-lee-57777387/)<sup>1,2</sup> &emsp; [Alexandros Koliousis](https://akoliousis.com)<sup>3</sup>   
 
@@ -46,15 +50,15 @@ Welcome to the official GitHub repository for **NeuroRVQ**.
 
 ### EEG
 
-![NeuroRVQ EEG Reconstruction](images/eeg.png)
+<img src="images/eeg.png" width="500">
 
 ### ECG 
 
-![NeuroRVQ ECG Reconstruction](images/ecg.png)
+<img src="images/ecg.png" width="500">
 
 ### EMG 
 
-![NeuroRVQ EMG Reconstruction](images/emg.png)
+<img src="images/emg.png" width="500">
 
 ## Downstream Performance
 
