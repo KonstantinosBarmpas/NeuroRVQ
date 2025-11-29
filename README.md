@@ -31,9 +31,9 @@ This is the official implementation of **NeuroRVQ**, a foundation model for bios
 
 | Modality | Support |
 | :--- | :--- |
-| **EEG** | ✅ |
-| **EMG** | ✅ |
-| **ECG** | ✅ |
+| **<span style="color:blue;">EEG</span>** | ✅ |
+| **<span style="color:green;">EMG</span>** | ✅ |
+| **<span style="color:orange;">ECG</span>** | ✅ |
 
 | Model Version | Parameters | Modality | Model Path ('/pretrained_models/..') | 
 | :--- | :--- | :--- | :--- |
