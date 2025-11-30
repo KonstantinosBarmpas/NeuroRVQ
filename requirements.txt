@@ -187,3 +187,4 @@ numpy
 pandas
 skorch==0.15.0
 braindecode==0.8.1
+huggingface_hub
