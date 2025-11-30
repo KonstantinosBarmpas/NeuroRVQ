@@ -1,8 +1,11 @@
 <div align="center">
 
+<img src="images/banner.png" width="600">
+
 # 🧠NeuroRVQ: Multi-Scale EEG Tokenization for Generative Large Brainwave Models
 
-** [Preprint](https://arxiv.org/abs/2510.13068) **
+<a href='https://arxiv.org/abs/2510.13068'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
+<a href=''><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a>
 
 [Konstantinos Barmpas](https://www.barmpas.com)<sup>1,2</sup> &emsp; [Na Lee](https://www.linkedin.com/in/na-lee-57777387/)<sup>1,2</sup> &emsp; [Alexandros Koliousis](https://akoliousis.com)<sup>3</sup>   
 
@@ -15,11 +18,11 @@
 <sup>5</sup>Archimedes Research Unit, Greece <br>
 <sup>6</sup>Aristotle University of Thessaloniki, Greece 
 
+This is the official implementation of **NeuroRVQ**, a foundation model for biosignals powered by a state-of-the-art biosignal tokenizer
+
 </div>
 
 ## 🌟 Overview
-
-Welcome to the official GitHub repository for **NeuroRVQ**. 
 
 **NeuroRVQ Tokenizer** is a specialized network designed to convert raw biosignals into a sequence of compact and informative neural tokens. This transformation reduces the inherently high-dimensional and noisy nature of biosginals into a structured lower-dimensional representation that preserves essential temporal–spectral patterns. In doing so, the tokenizer provides a kind of "neural grammar" for neural activity. The input multi-variate timeseries is first segmented into patches. These patches are encoded by the multi-scale temporal encoder, that captures features in multiple resolutions and are then combined via the transfromer encoder. For each scale, RVQ codebooks discretize the embeddings into a sequence of neural tokens. Finally, these tokens are combined and passed through the tokenizer decoder to reconstruct the input patches using the Fourier spectrum.
 
@@ -33,28 +36,20 @@ Welcome to the official GitHub repository for **NeuroRVQ**.
 | **EMG** | ✅ |
 | **ECG** | ✅ |
 
-| Model Version | Parameters | Modality | Model Path | 
-| :--- | :--- | :--- | | :--- |
-| **NeuroRVQ-EEG-tokenizer-v1** | 76 Million | EEG | './pretrained_models/tokenizers/NeuroRVQ_EEG_tokenizer_v1.pt' |
-| **NeuroRVQ-EEG-foundation-model-v1** | 6 Million | EEG | './pretrained_models/foundation_models/NeuroRVQ_EEG_foundation_model_v1.pt'|
-| **NeuroRVQ-EMG-tokenizer-v1** | - | EMG | - |
-| **NeuroRVQ-EMG-foundation-model-v1** | "Training..." | EMG | - |
-| **NeuroRVQ-ECG-tokenizer-v1** | - | ECG | - |
-| **NeuroRVQ-ECG-foundation-model-v1** | "Training..." | ECG | - |
+| Model Version | Parameters | Modality | Trained Models <a href=''><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a> | 
+| :--- | :--- | :--- | :--- |
+| **NeuroRVQ-EEG-tokenizer-v1** | 76 Million | EEG | NeuroRVQ_EEG_tokenizer_v1.pt |
+| **NeuroRVQ-EEG-foundation-model-v1** | 6 Million | EEG | NeuroRVQ_EEG_foundation_model_v1.pt |
+| **NeuroRVQ-EMG-tokenizer-v1** | - | EMG | "To be released soon..." |
+| **NeuroRVQ-EMG-foundation-model-v1** | - | EMG | "Training in Progress..." |
+| **NeuroRVQ-ECG-tokenizer-v1** | - | ECG | "To be released soon..." |
+| **NeuroRVQ-ECG-foundation-model-v1** | - | ECG | "Training in Progress..." |
 
-## Tokenization Performance
+## Tokenization / Reconstruction Capabilities
 
-### EEG
-
-![NeuroRVQ EEG Reconstruction](images/eeg.png)
-
-### ECG 
-
-![NeuroRVQ ECG Reconstruction](images/ecg.png)
-
-### EMG 
-
-![NeuroRVQ EMG Reconstruction](images/emg.png)
+| EEG | ECG | EMG |
+|:---:|:---:|:---:|
+| <img src="images/eeg.png" width="300"/> | <img src="images/ecg.png" width="300"/> | <img src="images/emg.png" width="350"/> |
 
 ## Downstream Performance
 
