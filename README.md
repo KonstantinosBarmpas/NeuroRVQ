@@ -5,7 +5,7 @@
 # 🧠NeuroRVQ: Multi-Scale EEG Tokenization for Generative Large Brainwave Models
 
 <a href='https://arxiv.org/abs/2510.13068'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
-<a href=''><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a>
+<a href='https://huggingface.co/ntinosbarmpas/NeuroRVQ'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a>
 
 [Konstantinos Barmpas](https://www.barmpas.com)<sup>1,2</sup> &emsp; [Na Lee](https://www.linkedin.com/in/na-lee-57777387/)<sup>1,2</sup> &emsp; [Alexandros Koliousis](https://akoliousis.com)<sup>3</sup>   
 
@@ -36,7 +36,7 @@ This is the official implementation of **NeuroRVQ**, a foundation model for bios
 | **EMG** | ✅ |
 | **ECG** | ✅ |
 
-| Model Version | Parameters | Modality | Trained Models <a href=''><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a> | 
+| Model Version | Parameters | Modality | Trained Models <a href='https://huggingface.co/ntinosbarmpas/NeuroRVQ'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a> | 
 | :--- | :--- | :--- | :--- |
 | **NeuroRVQ-EEG-tokenizer-v1** | 76 Million | EEG | NeuroRVQ_EEG_tokenizer_v1.pt |
 | **NeuroRVQ-EEG-foundation-model-v1** | 6 Million | EEG | NeuroRVQ_EEG_foundation_model_v1.pt |
@@ -86,9 +86,9 @@ The models and the sample biosignal for reconstruction demos can be downloaded m
 ```python
 from huggingface_hub import hf_hub_download
 
-hf_hub_download(repo_id="", filename="pretrained_models/tokenizers/NeuroRVQ_EEG_tokenizer_v1.pt", local_dir="./pretrained_models/tokenizers")
-hf_hub_download(repo_id="", filename="pretrained_models/foundation_models/NeuroRVQ_EEG_foundation_model_v1.pt", local_dir="./pretrained_models/foundation_models")
-hf_hub_download(repo_id="", filename="example_files/eeg_sample/example_eeg_file.xdf", local_dir="./example_files/eeg_sample")
+hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/tokenizers/NeuroRVQ_EEG_tokenizer_v1.pt", local_dir="./pretrained_models/tokenizers")
+hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/foundation_models/NeuroRVQ_EEG_foundation_model_v1.pt", local_dir="./pretrained_models/foundation_models")
+hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="example_files/eeg_sample/example_eeg_file.xdf", local_dir="./example_files/eeg_sample")
 ```
 
 ## Model Loading / Usage
