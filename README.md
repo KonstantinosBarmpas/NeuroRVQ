@@ -5,6 +5,7 @@
 # 🧠NeuroRVQ: Multi-Scale EEG Tokenization for Generative Large Brainwave Models
 
 <a href='https://arxiv.org/abs/2510.13068'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
+<a href=''><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a>
 
 [Konstantinos Barmpas](https://www.barmpas.com)<sup>1,2</sup> &emsp; [Na Lee](https://www.linkedin.com/in/na-lee-57777387/)<sup>1,2</sup> &emsp; [Alexandros Koliousis](https://akoliousis.com)<sup>3</sup>   
 
