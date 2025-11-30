@@ -49,7 +49,7 @@ This is the official implementation of **NeuroRVQ**, a foundation model for bios
 
 | EEG | ECG | EMG |
 |:---:|:---:|:---:|
-| <img src="images/eeg.png" width="250"/> | <img src="images/ecg.png" width="250"/> | <img src="images/emg.png" width="300"/> |
+| <img src="images/eeg.png" width="300"/> | <img src="images/ecg.png" width="300"/> | <img src="images/emg.png" width="350"/> |
 
 ## Downstream Performance
 
