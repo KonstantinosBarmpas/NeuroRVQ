@@ -36,7 +36,7 @@ This is the official implementation of **NeuroRVQ**, a foundation model for bios
 | **EMG** | ✅ |
 | **ECG** | ✅ |
 
-| Model Version | Parameters | Modality | Model Path ('/pretrained_models/..') | 
+| Model Version | Parameters | Modality | Model Path <a href=''><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a> | 
 | :--- | :--- | :--- | :--- |
 | **NeuroRVQ-EEG-tokenizer-v1** | 76 Million | EEG | NeuroRVQ_EEG_tokenizer_v1.pt |
 | **NeuroRVQ-EEG-foundation-model-v1** | 6 Million | EEG | NeuroRVQ_EEG_foundation_model_v1.pt |
