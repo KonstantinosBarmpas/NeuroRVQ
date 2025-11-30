@@ -30,10 +30,10 @@ This is the official implementation of **NeuroRVQ**, a foundation model for bios
 ## Model and Modalities
 
 | Modality | Support |
-| :--- | :--- |
-| **<span style="color:blue;">EEG</span>** | ✅ |
-| **<span style="color:green;">EMG</span>** | ✅ |
-| <span style="color:orange;">ECG</span> | ✅ |
+| :--- | :---: |
+| ![EEG](https://img.shields.io/badge/EEG- -0078D7?style=for-the-badge&logo=brain) | ✅ |
+| ![EMG](https://img.shields.io/badge/EMG- -28A745?style=for-the-badge&logo=muscle) | ✅ |
+| ![ECG](https://img.shields.io/badge/ECG- -FF8C00?style=for-the-badge&logo=heart) | ✅ |
 
 | Model Version | Parameters | Modality | Model Path ('/pretrained_models/..') | 
 | :--- | :--- | :--- | :--- |
