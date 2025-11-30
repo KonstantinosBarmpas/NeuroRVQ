@@ -46,17 +46,9 @@ This is the official implementation of **NeuroRVQ**, a foundation model for bios
 
 ## Tokenization / Reconstruction Capabilities
 
-### EEG
-
-<img src="images/eeg.png" width="500">
-
-### ECG 
-
-<img src="images/ecg.png" width="500">
-
-### EMG 
-
-<img src="images/emg.png" width="500">
+| EEG | ECG | EMG |
+|:---:|:---:|:---:|
+| <img src="images/eeg.png" width="250"/> | <img src="images/ecg.png" width="250"/> | <img src="images/emg.png" width="250"/> |
 
 ## Downstream Performance
 
