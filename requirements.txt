@@ -9,3 +9,4 @@ einops
 scipy
 matplotlib
 pyxdf
+huggingface_hub
