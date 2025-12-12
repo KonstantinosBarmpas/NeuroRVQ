@@ -70,7 +70,7 @@ We used the benchmark presented in IEEE MLSP 2025 Paper [Assessing the Capabilit
 #### About the Benchmark
 Over the last decade, deep learning models have been widely used for automatic feature extraction and classification in various Brain-Computer Interface (BCI) tasks. However, their performance and generalization capabilities are often not adequately assessed, as these models are frequently trained and tested under flawed setups and / or influenced by spurious correlations. Recently, these limitations have also been observed in the training and evaluation of Large Brainwave Foundation Models (LBMs). In this work, we employ causal reasoning and careful consideration for task-discriminative artifacts in various EEG datasets covering diverse BCI paradigms and propose a benchmarking protocol to properly evaluate the decoding performance and generalization capabilities of LBMs. Utilising a subject-independent cross-validation approach for each curated benchmark dataset, we showcase that LBMs achieve marginal performance gains over conventional deep learning baselines.
 
-[Open-Source Benchmark Code](https://github.com/dykestra/EEG-Benchmarking)
+[Open-Source Benchmark Code Available](https://github.com/dykestra/EEG-Benchmarking)
 
 ## Installation
 ```bash
