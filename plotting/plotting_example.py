@@ -4,14 +4,6 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import os
 
-# Define EEG bands
-bands = {
-    "Delta (0.5–4 Hz)": (0.5, 4),
-    "Theta (4–8 Hz)": (4, 8),
-    "Alpha (8–13 Hz)": (8, 13),
-    "Beta (13–30 Hz)": (13, 30),
-    "Gamma (30–45 Hz)": (30, 45),
-}
 
 # Bandpass filter function
 def bandpass_filter(data, lowcut, highcut, fs, order=2):
@@ -20,7 +12,7 @@ def bandpass_filter(data, lowcut, highcut, fs, order=2):
     b, a = butter(order, [low, high], btype='band')
     return filtfilt(b, a, data)
 
-def plot_reconstructions(originals_list, reconstructions_list, fs,
+def plot_reconstructions(originals_list, reconstructions_list, fs, bands,
                          labels=["NeuroRVQ"], save_dir="./figures"):
 
     if not os.path.exists(save_dir):
@@ -68,7 +60,7 @@ def plot_reconstructions(originals_list, reconstructions_list, fs,
         plt.close()
 
 
-def process_and_plot(originals, reconstructions, fs):
+def process_and_plot(originals, reconstructions, fs, mode):
     P, T = reconstructions[0].shape
 
     originals_np = [
@@ -79,6 +71,26 @@ def process_and_plot(originals, reconstructions, fs):
         reconstruction.detach().cpu().numpy().reshape(P, T)
         for reconstruction in reconstructions
     ]
+    
+    if mode=="EEG":
+        # Define EEG bands
+        bands = {
+            "Delta (0.5–4 Hz)": (0.5, 4),
+            "Theta (4–8 Hz)": (4, 8),
+            "Alpha (8–13 Hz)": (8, 13),
+            "Beta (13–30 Hz)": (13, 30),
+            "Gamma (30–45 Hz)": (30, 45),
+        }
+    elif mode=="EMG":
+        # Define EMG bands
+        bands = {
+            "Band 1 (20–60 Hz)": (20, 60),
+            "Band 2 (60–125 Hz)": (60, 125),
+            "Band 3 (125-200 Hz)": (125, 200),
+            "Band 4 (200-250 Hz)": (200, 250),
+            "Band 5 (250-400 Hz)": (250, 400),
+        }
 
     # Plot
-    plot_reconstructions(originals_np, reconstructions_np, fs)
+    plot_reconstructions(originals_np, reconstructions_np, fs, bands)
+    

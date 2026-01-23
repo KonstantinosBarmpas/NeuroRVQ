@@ -1,19 +1,18 @@
 import yaml
 import numpy as np
 import torch
-from NeuroRVQ_EEG.NeuroRVQ import NeuroRVQTokenizer
-from NeuroRVQ_EEG.NeuroRVQ_modules import get_encoder_decoder_params
-from preprocessing.preprocessing_eeg_example import preprocessing_eeg
+from NeuroRVQ_EMG.NeuroRVQ import NeuroRVQTokenizer
+from NeuroRVQ_EMG.NeuroRVQ_modules import get_encoder_decoder_params
 from plotting.plotting_example import process_and_plot
-from preprocessing.preprocessing_eeg_example import create_patches
-from inference.modules.NeuroRVQ_EEG_tokenizer_inference_modules import ch_names_global, create_embedding_ix, check_model_eval_mode
+from preprocessing.preprocessing_emg_example import preprocessing_emg, create_patches
+from inference.modules.NeuroRVQ_EMG_tokenizer_inference_modules import ch_names_global, create_embedding_ix, check_model_eval_mode
 
 def load_neurorqv_tokenizer(run_example=False, plot_results=False, verbose=False,
-                            model_path='./pretrained_models/tokenizers/NeuroRVQ_EEG_tokenizer_v1.pt'):
+                            model_path='./pretrained_models/tokenizers/NeuroRVQ_EMG_tokenizer_v1.pt'):
     # Load experiment parameters from config file
-    config_stream = open("./flags/NeuroRVQ_EEG_v1.yml", 'r')
+    config_stream = open("./flags/NeuroRVQ_EMG_v1.yml", 'r')
     args = yaml.safe_load(config_stream)
-
+    
     # Fix the seeds for reproducibility
     seed = 123
     torch.manual_seed(seed)
@@ -35,10 +34,13 @@ def load_neurorqv_tokenizer(run_example=False, plot_results=False, verbose=False
         check_model_eval_mode(tokenizer)
 
     if (run_example):
-        x, ch_names = preprocessing_eeg('example_files/eeg_sample/example_eeg_file.xdf')
+        x, ch_names = preprocessing_emg()
         ch_mask = np.isin(ch_names, ch_names_global)
         ch_names = ch_names[ch_mask]
         x = x[:, ch_mask, :]
+        
+        print(x.shape)
+        print(ch_names.shape)
 
         x, n_time = create_patches(x, maximum_patches=args['n_patches'], patch_size=args['patch_size'], channels_use=ch_mask)
         x = torch.from_numpy(x).float().to(device)
@@ -47,4 +49,4 @@ def load_neurorqv_tokenizer(run_example=False, plot_results=False, verbose=False
         oringal_signal_std, reconstructed_signal_std = tokenizer(x, temporal_embedding_ix.int().to(device), spatial_embedding_ix.int().to(device))
         
         if (plot_results):
-            process_and_plot(oringal_signal_std, reconstructed_signal_std, fs=args['patch_size'], mode='EEG')
+            process_and_plot(oringal_signal_std, reconstructed_signal_std, fs=1000, mode='EMG')

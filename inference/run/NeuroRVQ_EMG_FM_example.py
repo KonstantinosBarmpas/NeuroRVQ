@@ -1,9 +1,9 @@
 import yaml
 import numpy as np
 import torch
-from NeuroRVQ_EEG.NeuroRVQ import NeuroRVQFM
-from NeuroRVQ_EEG.NeuroRVQ_modules import get_encoder_decoder_params
-from inference.modules.NeuroRVQ_EEG_tokenizer_inference_modules import ch_names_global, create_embedding_ix, check_model_eval_mode
+from NeuroRVQ_EMG.NeuroRVQ import NeuroRVQFM
+from NeuroRVQ_EMG.NeuroRVQ_modules import get_encoder_decoder_params
+from inference.modules.NeuroRVQ_EMG_tokenizer_inference_modules import ch_names_global, create_embedding_ix, check_model_eval_mode
 from functools import partial
 from torch import nn
 from fine_tuning.utils import get_logger, get_model
@@ -58,9 +58,9 @@ def perform_finetuning(benchmarks, metrics, args, foundation_model):
     return
 
 def load_neurorqv_fm(fine_tuning=False, verbose=False,
-                     model_path='./pretrained_models/foundation_models/NeuroRVQ_EEG_foundation_model_v1.pt'):
+                     model_path='./pretrained_models/foundation_models/NeuroRVQ_EMG_foundation_model_v1.pt'):
     # Load experiment parameters from config file
-    config_stream = open("./flags/NeuroRVQ_EEG_v1.yml", 'r')
+    config_stream = open("./flags/NeuroRVQ_EMG_v1.yml", 'r')
     args = yaml.safe_load(config_stream)
 
     # Fix the seeds for reproducibility
