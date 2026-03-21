@@ -1,7 +1,7 @@
 import numpy as np
 import torch
 
-# List of all channels used in the pre-training of "NeuroRVQ_EEG_v1" model
+# List of all channels used in the pre-training of "NeuroRVQ_EMG_v1" model
 ch_names_global = np.array([b'c1', b'c10', b'c11', b'c12', b'c13', b'c14', b'c15', b'c16',
  b'c2', b'c3', b'c4', b'c5', b'c6', b'c7', b'c8', b'c9'])
 

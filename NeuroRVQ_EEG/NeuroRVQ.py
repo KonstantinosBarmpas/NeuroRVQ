@@ -149,115 +149,41 @@ class NeuroRVQFM(nn.Module):
                 init_values=init_values, window_size=None)
             for i in range(depth)])
 
-        # If used for pre-training we need heads to predict 8 * 4 tokens per input sample
-        # TODO: Modular
-        if use_for_pretraining:
-            self.mask_token = nn.Parameter(torch.zeros(1, 1, embed_dim))
-            self.norm_pre = nn.LayerNorm(embed_dim)
-            self.head_pre_1 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_2 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_3 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_4 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_5 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_6 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_7 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_8 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_9 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_10 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_11 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_12 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_13 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_14 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_15 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_16 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_17 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_18 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_19 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_20 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_21 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_22 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_23 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_24 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_25 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_26 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_27 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_28 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_29 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_30 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_31 = nn.Linear(embed_dim, vocab_size)
-            self.head_pre_32 = nn.Linear(embed_dim, vocab_size)
-        else:
-            self.norm = nn.Identity()
-            self.fc_norm_1 = nn.LayerNorm(embed_dim)
-            self.head_1 = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
-            self.fc_norm_2 = nn.LayerNorm(embed_dim)
-            self.head_2 = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
-            self.fc_norm_3 = nn.LayerNorm(embed_dim)
-            self.head_3 = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
-            self.fc_norm_4 = nn.LayerNorm(embed_dim)
-            self.head_4 = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
+        self.norm = nn.Identity()
+        self.fc_norm_1 = nn.LayerNorm(embed_dim)
+        self.head_1 = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
+        self.fc_norm_2 = nn.LayerNorm(embed_dim)
+        self.head_2 = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
+        self.fc_norm_3 = nn.LayerNorm(embed_dim)
+        self.head_3 = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
+        self.fc_norm_4 = nn.LayerNorm(embed_dim)
+        self.head_4 = nn.Linear(embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
         # Initialize the weights of the network
         trunc_normal_(self.pos_embed, std=.02)
         trunc_normal_(self.time_embed, std=.02)
         trunc_normal_(self.cls_token, std=.02)
 
-        # Initialization ONLY during pretraining
-        if use_for_pretraining:
-            trunc_normal_(self.mask_token, std=.02)
-            trunc_normal_(self.head_pre_1.weight, std=.02)
-            trunc_normal_(self.head_pre_2.weight, std=.02)
-            trunc_normal_(self.head_pre_3.weight, std=.02)
-            trunc_normal_(self.head_pre_4.weight, std=.02)
-            trunc_normal_(self.head_pre_5.weight, std=.02)
-            trunc_normal_(self.head_pre_6.weight, std=.02)
-            trunc_normal_(self.head_pre_7.weight, std=.02)
-            trunc_normal_(self.head_pre_8.weight, std=.02)
-            trunc_normal_(self.head_pre_9.weight, std=.02)
-            trunc_normal_(self.head_pre_10.weight, std=.02)
-            trunc_normal_(self.head_pre_11.weight, std=.02)
-            trunc_normal_(self.head_pre_12.weight, std=.02)
-            trunc_normal_(self.head_pre_13.weight, std=.02)
-            trunc_normal_(self.head_pre_14.weight, std=.02)
-            trunc_normal_(self.head_pre_15.weight, std=.02)
-            trunc_normal_(self.head_pre_16.weight, std=.02)
-            trunc_normal_(self.head_pre_17.weight, std=.02)
-            trunc_normal_(self.head_pre_18.weight, std=.02)
-            trunc_normal_(self.head_pre_19.weight, std=.02)
-            trunc_normal_(self.head_pre_20.weight, std=.02)
-            trunc_normal_(self.head_pre_21.weight, std=.02)
-            trunc_normal_(self.head_pre_22.weight, std=.02)
-            trunc_normal_(self.head_pre_23.weight, std=.02)
-            trunc_normal_(self.head_pre_24.weight, std=.02)
-            trunc_normal_(self.head_pre_25.weight, std=.02)
-            trunc_normal_(self.head_pre_26.weight, std=.02)
-            trunc_normal_(self.head_pre_27.weight, std=.02)
-            trunc_normal_(self.head_pre_28.weight, std=.02)
-            trunc_normal_(self.head_pre_29.weight, std=.02)
-            trunc_normal_(self.head_pre_30.weight, std=.02)
-            trunc_normal_(self.head_pre_31.weight, std=.02)
-            trunc_normal_(self.head_pre_32.weight, std=.02)
-        else:
-            if isinstance(self.head_1, nn.Linear):
-                trunc_normal_(self.head_1.weight, std=.02)
-            if isinstance(self.head_1, nn.Linear):
-                self.head_1.weight.data.mul_(init_scale)
-                self.head_1.bias.data.mul_(init_scale)
-            if isinstance(self.head_2, nn.Linear):
-                trunc_normal_(self.head_2.weight, std=.02)
-            if isinstance(self.head_2, nn.Linear):
-                self.head_2.weight.data.mul_(init_scale)
-                self.head_2.bias.data.mul_(init_scale)
-            if isinstance(self.head_3, nn.Linear):
-                trunc_normal_(self.head_3.weight, std=.02)
-            if isinstance(self.head_3, nn.Linear):
-                self.head_3.weight.data.mul_(init_scale)
-                self.head_3.bias.data.mul_(init_scale)
-            if isinstance(self.head_4, nn.Linear):
-                trunc_normal_(self.head_4.weight, std=.02)
-            if isinstance(self.head_4, nn.Linear):
-                self.head_4.weight.data.mul_(init_scale)
-                self.head_4.bias.data.mul_(init_scale)
+        if isinstance(self.head_1, nn.Linear):
+            trunc_normal_(self.head_1.weight, std=.02)
+        if isinstance(self.head_1, nn.Linear):
+            self.head_1.weight.data.mul_(init_scale)
+            self.head_1.bias.data.mul_(init_scale)
+        if isinstance(self.head_2, nn.Linear):
+            trunc_normal_(self.head_2.weight, std=.02)
+        if isinstance(self.head_2, nn.Linear):
+            self.head_2.weight.data.mul_(init_scale)
+            self.head_2.bias.data.mul_(init_scale)
+        if isinstance(self.head_3, nn.Linear):
+            trunc_normal_(self.head_3.weight, std=.02)
+        if isinstance(self.head_3, nn.Linear):
+            self.head_3.weight.data.mul_(init_scale)
+            self.head_3.bias.data.mul_(init_scale)
+        if isinstance(self.head_4, nn.Linear):
+            trunc_normal_(self.head_4.weight, std=.02)
+        if isinstance(self.head_4, nn.Linear):
+            self.head_4.weight.data.mul_(init_scale)
+            self.head_4.bias.data.mul_(init_scale)
 
         self.apply(self._init_weights)
         self.fix_init_weight()
@@ -324,29 +250,6 @@ class NeuroRVQFM(nn.Module):
 
         # Concatenate the cls token - Legacy code
         cls_tokens = self.cls_token.expand(batch_size, -1, -1)
-
-        # ONLY in Pre-Training - Masking technique used in LaBraM
-        if (use_for_pretraining or bool_masked_pos is not None):
-            mask_token = self.mask_token.expand(batch_size, seq_len, -1)
-            w = bool_masked_pos.unsqueeze(-1).type_as(mask_token)
-            symmetric_bool_masked_pos = ~bool_masked_pos
-            w_symmetric = symmetric_bool_masked_pos.unsqueeze(-1).type_as(mask_token)
-            
-            x_symmetric_1 = x1 * (1 - w_symmetric) + mask_token * w_symmetric
-            x1 = x1 * (1 - w) + mask_token * w
-            x_symmetric_1 = torch.cat((cls_tokens, x_symmetric_1), dim=1)
-
-            x_symmetric_2 = x2 * (1 - w_symmetric) + mask_token * w_symmetric
-            x2 = x2 * (1 - w) + mask_token * w
-            x_symmetric_2 = torch.cat((cls_tokens, x_symmetric_2), dim=1)
-
-            x_symmetric_3 = x3 * (1 - w_symmetric) + mask_token * w_symmetric
-            x3 = x3 * (1 - w) + mask_token * w
-            x_symmetric_3 = torch.cat((cls_tokens, x_symmetric_3), dim=1)
-
-            x_symmetric_4 = x4 * (1 - w_symmetric) + mask_token * w_symmetric
-            x4 = x4 * (1 - w) + mask_token * w
-            x_symmetric_4 = torch.cat((cls_tokens, x_symmetric_4), dim=1)
 
         if (self.use_as_encoder):
             x1 = torch.cat((cls_tokens, x1), dim=1)
@@ -418,131 +321,23 @@ class NeuroRVQFM(nn.Module):
             # All except cls token
             x = x[:, 1:, :]
 
-        if (use_for_pretraining or bool_masked_pos is not None):
-            for i, x_symmetric in enumerate([x_symmetric_1, x_symmetric_2, x_symmetric_3, x_symmetric_4]):
-                x_symmetric += spatial_embedding
-                x_symmetric[:, 1:, :] += temporal_embedding
-                x_symmetric = self.pos_drop(x_symmetric)
-                for blk in self.blocks:
-                    x_symmetric = blk(x_symmetric)
-                x_symmetric = self.norm_pre(x_symmetric)
-                # All except cls token
-                if i == 0:
-                    x_symmetric_1 = x_symmetric[:, 1:, :]
-                elif i == 1:
-                    x_symmetric_2 = x_symmetric[:, 1:, :]
-                elif i == 2:
-                    x_symmetric_3 = x_symmetric[:, 1:, :]
-                else:
-                    x_symmetric_4 = x_symmetric[:, 1:, :]
-
-        # ONLY in Pre-Training
-        if (use_for_pretraining or bool_masked_pos is not None):
-        
-            logits = torch.stack([
-                # x1 heads
-                self.head_pre_1(x1[bool_masked_pos]),
-                self.head_pre_2(x1[bool_masked_pos]),
-                self.head_pre_3(x1[bool_masked_pos]),
-                self.head_pre_4(x1[bool_masked_pos]),
-                self.head_pre_5(x1[bool_masked_pos]),
-                self.head_pre_6(x1[bool_masked_pos]),
-                self.head_pre_7(x1[bool_masked_pos]),
-                self.head_pre_8(x1[bool_masked_pos]),
-
-                # x2 heads
-                self.head_pre_9(x2[bool_masked_pos]),
-                self.head_pre_10(x2[bool_masked_pos]),
-                self.head_pre_11(x2[bool_masked_pos]),
-                self.head_pre_12(x2[bool_masked_pos]),
-                self.head_pre_13(x2[bool_masked_pos]),
-                self.head_pre_14(x2[bool_masked_pos]),
-                self.head_pre_15(x2[bool_masked_pos]),
-                self.head_pre_16(x2[bool_masked_pos]),
-
-                # x3 heads
-                self.head_pre_17(x3[bool_masked_pos]),
-                self.head_pre_18(x3[bool_masked_pos]),
-                self.head_pre_19(x3[bool_masked_pos]),
-                self.head_pre_20(x3[bool_masked_pos]),
-                self.head_pre_21(x3[bool_masked_pos]),
-                self.head_pre_22(x3[bool_masked_pos]),
-                self.head_pre_23(x3[bool_masked_pos]),
-                self.head_pre_24(x3[bool_masked_pos]),
-
-                # x4 heads
-                self.head_pre_25(x4[bool_masked_pos]),
-                self.head_pre_26(x4[bool_masked_pos]),
-                self.head_pre_27(x4[bool_masked_pos]),
-                self.head_pre_28(x4[bool_masked_pos]),
-                self.head_pre_29(x4[bool_masked_pos]),
-                self.head_pre_30(x4[bool_masked_pos]),
-                self.head_pre_31(x4[bool_masked_pos]),
-                self.head_pre_32(x4[bool_masked_pos]),
-            ], dim=0)
-            
-            logits_symmetric = torch.stack([
-                # x_symmetric_1 heads
-                self.head_pre_1(x_symmetric_1[~bool_masked_pos]),
-                self.head_pre_2(x_symmetric_1[~bool_masked_pos]),
-                self.head_pre_3(x_symmetric_1[~bool_masked_pos]),
-                self.head_pre_4(x_symmetric_1[~bool_masked_pos]),
-                self.head_pre_5(x_symmetric_1[~bool_masked_pos]),
-                self.head_pre_6(x_symmetric_1[~bool_masked_pos]),
-                self.head_pre_7(x_symmetric_1[~bool_masked_pos]),
-                self.head_pre_8(x_symmetric_1[~bool_masked_pos]),
-
-                # x_symmetric_2 heads
-                self.head_pre_9(x_symmetric_2[~bool_masked_pos]),
-                self.head_pre_10(x_symmetric_2[~bool_masked_pos]),
-                self.head_pre_11(x_symmetric_2[~bool_masked_pos]),
-                self.head_pre_12(x_symmetric_2[~bool_masked_pos]),
-                self.head_pre_13(x_symmetric_2[~bool_masked_pos]),
-                self.head_pre_14(x_symmetric_2[~bool_masked_pos]),
-                self.head_pre_15(x_symmetric_2[~bool_masked_pos]),
-                self.head_pre_16(x_symmetric_2[~bool_masked_pos]),
-
-                # x_symmetric_3 heads
-                self.head_pre_17(x_symmetric_3[~bool_masked_pos]),
-                self.head_pre_18(x_symmetric_3[~bool_masked_pos]),
-                self.head_pre_19(x_symmetric_3[~bool_masked_pos]),
-                self.head_pre_20(x_symmetric_3[~bool_masked_pos]),
-                self.head_pre_21(x_symmetric_3[~bool_masked_pos]),
-                self.head_pre_22(x_symmetric_3[~bool_masked_pos]),
-                self.head_pre_23(x_symmetric_3[~bool_masked_pos]),
-                self.head_pre_24(x_symmetric_3[~bool_masked_pos]),
-
-                # x_symmetric_4 heads
-                self.head_pre_25(x_symmetric_4[~bool_masked_pos]),
-                self.head_pre_26(x_symmetric_4[~bool_masked_pos]),
-                self.head_pre_27(x_symmetric_4[~bool_masked_pos]),
-                self.head_pre_28(x_symmetric_4[~bool_masked_pos]),
-                self.head_pre_29(x_symmetric_4[~bool_masked_pos]),
-                self.head_pre_30(x_symmetric_4[~bool_masked_pos]),
-                self.head_pre_31(x_symmetric_4[~bool_masked_pos]),
-                self.head_pre_32(x_symmetric_4[~bool_masked_pos]),
-            ], dim=0)
-        
-            return  logits, logits_symmetric
-        else:
-            # ONLY in RVQ
-            if return_patch_tokens:
-                if (self.use_as_encoder):
-                    return self.head_1(self.fc_norm_1(x1)), self.head_2(self.fc_norm_2(x2)), self.head_3(self.fc_norm_3(x3)), self.head_4(self.fc_norm_4(x4)), _
-                else:
-                    if (branch_idx==0):
-                        return self.head_1(self.fc_norm_1(x)), _
-                    elif (branch_idx==1):
-                        return self.head_2(self.fc_norm_2(x)), _
-                    elif (branch_idx==2):
-                        return self.head_3(self.fc_norm_3(x)), _
-                    elif (branch_idx==3):
-                        return self.head_4(self.fc_norm_4(x)), _
+        # ONLY in RVQ
+        if return_patch_tokens:
+            if (self.use_as_encoder):
+                return self.head_1(self.fc_norm_1(x1)), self.head_2(self.fc_norm_2(x2)), self.head_3(self.fc_norm_3(x3)), self.head_4(self.fc_norm_4(x4)), _
             else:
-                # ONLY in Fine-Tune
-                x = torch.concat([x1,x2,x3,x4], dim=-1)
-                return self.head(self.fc_norm(x.mean(1))), _
-
+                if (branch_idx==0):
+                    return self.head_1(self.fc_norm_1(x)), _
+                elif (branch_idx==1):
+                    return self.head_2(self.fc_norm_2(x)), _
+                elif (branch_idx==2):
+                    return self.head_3(self.fc_norm_3(x)), _
+                elif (branch_idx==3):
+                    return self.head_4(self.fc_norm_4(x)), _
+        else:
+            # ONLY in Fine-Tune
+            x = torch.concat([x1,x2,x3,x4], dim=-1)
+            return self.head(self.fc_norm(x.mean(1))), _
 
 
 class NeuroRVQTokenizer(nn.Module):

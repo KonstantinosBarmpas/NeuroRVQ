@@ -42,8 +42,8 @@ This is the official implementation of **NeuroRVQ**, a foundation model for bios
 | **NeuroRVQ-EEG-foundation-model-v1** | 6 Million | EEG | NeuroRVQ_EEG_foundation_model_v1.pt |
 | **NeuroRVQ-EMG-tokenizer-v1** | 144 Million | EMG | NeuroRVQ_EMG_tokenizer_v1.pt |
 | **NeuroRVQ-EMG-foundation-model-v1** | 6 Million | EMG | NeuroRVQ_EMG_foundation_model_v1.pt |
-| **NeuroRVQ-ECG-tokenizer-v1** | - | ECG | "To be released soon..." |
-| **NeuroRVQ-ECG-foundation-model-v1** | - | ECG | "Training in Progress..." |
+| **NeuroRVQ-ECG-tokenizer-v1** | 76 Million | ECG | NeuroRVQ_ECG_tokenizer_v1.pt |
+| **NeuroRVQ-ECG-foundation-model-v1** | 6 Million | ECG | NeuroRVQ-ECG-foundation-model-v1 |
 
 ## Tokenization / Reconstruction Capabilities
 
@@ -91,6 +91,8 @@ hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/fo
 hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/tokenizers/NeuroRVQ_EMG_tokenizer_v1.pt", local_dir="./")
 hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/foundation_models/NeuroRVQ_EMG_foundation_model_v1.pt", local_dir="./")
 hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="example_files/eeg_sample/example_eeg_file.xdf", local_dir="./")
+hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/tokenizers/NeuroRVQ_ECG_tokenizer_v1.pt", local_dir="./")
+hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/foundation_models/NeuroRVQ_ECG_foundation_model_v1.pt", local_dir="./")
 ```
 
 ## Model Loading / Usage
@@ -141,6 +143,30 @@ from inference.run.NeuroRVQ_EMG_FM_example import load_neurorqv_fm
 
 load_neurorqv_fm(fine_tuning=False, verbose=True,
                      model_path = './pretrained_models/foundation_models/NeuroRVQ_EMG_foundation_model_v1.pt')
+```
+
+Load ECG tokenizer and see reconstruction results (downloads and processes ptb-xl dataset). Example for ECG tokenizer:
+```python
+
+from inference.run.NeuroRVQ_ECG_tokenizer_example import load_neurorqv_tokenizer
+
+# Set run_example=True and plot_results=True to see reconstruction results
+# Checkout the load_neurorqv_tokenizer() function to load and use tokenizer
+
+load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True,
+                            model_path='./pretrained_models/tokenizers/NeuroRVQ_ECG_tokenizer_v1.pt')
+```
+
+Load foundation model and see an example for fine-tuning. Example for ECG foundation model:
+```python
+
+from inference.run.NeuroRVQ_ECG_FM_example import load_neurorqv_fm
+
+# Checkout the load_neurorqv_fm() function with fine_tuning=False to see the correct model loading
+# See the instructions in data.py for your custom dataset before setting fine_tuning=True
+
+load_neurorqv_fm(fine_tuning=False, verbose=True,
+                     model_path = './pretrained_models/foundation_models/NeuroRVQ_ECG_foundation_model_v1.pt')
 ```
 
 ## Citation

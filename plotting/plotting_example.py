@@ -90,6 +90,15 @@ def process_and_plot(originals, reconstructions, fs, mode):
             "Band 4 (200-250 Hz)": (200, 250),
             "Band 5 (250-400 Hz)": (250, 400),
         }
+    elif mode=="ECG":
+        # Define ECG bands
+        bands = {
+            "Band 1 (0.5–10 Hz)": (0.5, 10),
+            "Band 2 (10–20 Hz)": (10, 20),
+            "Band 3 (20-30 Hz)": (20, 30),
+            "Band 4 (30-40 Hz)": (30, 40),
+            "Band 5 (40-50 Hz)": (40, 50),
+        }
 
     # Plot
     plot_reconstructions(originals_np, reconstructions_np, fs, bands)

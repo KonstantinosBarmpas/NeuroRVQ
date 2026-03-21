@@ -1,9 +1,8 @@
 import numpy as np
 import torch
 
-# List of all channels used in the pre-training of "NeuroRVQ_EMG_v1" model
-ch_names_global = np.array([b'c1', b'c10', b'c11', b'c12', b'c13', b'c14', b'c15', b'c16',
- b'c2', b'c3', b'c4', b'c5', b'c6', b'c7', b'c8', b'c9'])
+# List of all channels used in the pre-training of "NeuroRVQ_ECG_v1" model
+ch_names_global = np.array([b'avf', b'avl', b'avr', b'i', b'ii', b'iii', b'v1', b'v2', b'v3', b'v4', b'v5', b'v6', b'vx', b'vy', b'vz'])
 
 def check_model_eval_mode(model):
     for name, module in model.named_modules():

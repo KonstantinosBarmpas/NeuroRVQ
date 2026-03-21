@@ -11,3 +11,4 @@ matplotlib
 pyxdf
 huggingface_hub
 h5py
+wfdb

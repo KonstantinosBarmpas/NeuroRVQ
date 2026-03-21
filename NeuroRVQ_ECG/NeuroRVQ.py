@@ -39,69 +39,72 @@ class PatchEmbed(nn.Module):
         
 class MultiDimentionalTemporalConv(nn.Module):
     """
-    EMG to Patch Embedding - Multidimentional Temporal Filtering
+    ECG to Patch Embedding - Multidimentional Temporal Filtering
     """
     def __init__(self, in_chans=1, out_chans=8):
+        '''
+        in_chans: in_chans of nn.Conv2d()
+        out_chans: out_chans of nn.Conv2d(), determining the output dimension
+        '''
         super().__init__()
-        # --- Group 1: First-level temporal convolutions --- #
-        # Branch 1: >20 Hz assuming fs=1000Hz
-        self.conv1_1 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 51), padding=(0, 25))
+        # Inception Style Seperate Branches - Group 1 #
+        # Branch 1: >10 Hz assuming fs=200Hz
+        self.conv1_1 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 21), padding=(0, 10))
         self.norm1_1 = nn.GroupNorm(4, out_chans)
         self.pool1_1 = nn.AvgPool2d(kernel_size=(1, 2))
 
-        # Branch 2: >60 Hz assuming fs=1000Hz
-        self.conv1_2 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 17), padding=(0, 8))
+        # Branch 2: >13 Hz assuming fs=200Hz
+        self.conv1_2 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 15), padding=(0, 7))
         self.norm1_2 = nn.GroupNorm(4, out_chans)
         self.pool1_2 = nn.AvgPool2d(kernel_size=(1, 2))
 
-        # Branch 3: >125 Hz assuming fs=1000Hz
-        self.conv1_3 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 8), padding=(0, 4))
+        # Branch 3: >20 Hz assuming fs=200Hz
+        self.conv1_3 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 9), padding=(0, 4))
         self.norm1_3 = nn.GroupNorm(4, out_chans)
         self.pool1_3 = nn.AvgPool2d(kernel_size=(1, 2))
 
-        # Branch 4: >250 Hz assuming fs=1000Hz
+        # Branch 4: >40 Hz assuming fs=200Hz
         self.conv1_4 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 5), padding=(0, 2))
         self.norm1_4 = nn.GroupNorm(4, out_chans)
         self.pool1_4 = nn.AvgPool2d(kernel_size=(1, 2))
         self.gelu1 = nn.GELU()
-
-        # --- Group 2: Second-level convolutions --- #
-        self.conv2_1 = nn.Conv2d(out_chans, out_chans, kernel_size=(1, 25), padding=(0, 12))
+        
+        # Inception Style Seperate Branches - Group 2 #
+        self.conv2_1 = nn.Conv2d(out_chans, out_chans, kernel_size=(1, 9), padding=(0, 4))
         self.norm2_1 = nn.GroupNorm(4, out_chans)
         self.pool2_1 = nn.AvgPool2d(kernel_size=(1, 4))
 
-        self.conv2_2 = nn.Conv2d(out_chans, out_chans, kernel_size=(1, 9), padding=(0, 4))
+        self.conv2_2 = nn.Conv2d(out_chans, out_chans, kernel_size=(1, 7), padding=(0, 3))
         self.norm2_2 = nn.GroupNorm(4, out_chans)
         self.pool2_2 = nn.AvgPool2d(kernel_size=(1, 4))
 
-        self.conv2_3 = nn.Conv2d(out_chans, out_chans, kernel_size=(1, 4), padding=(0, 2))
+        self.conv2_3 = nn.Conv2d(out_chans, out_chans, kernel_size=(1, 5), padding=(0, 2))
         self.norm2_3 = nn.GroupNorm(4, out_chans)
         self.pool2_3 = nn.AvgPool2d(kernel_size=(1, 4))
-
+        
         self.conv2_4 = nn.Conv2d(out_chans, out_chans, kernel_size=(1, 3), padding=(0, 1))
         self.norm2_4 = nn.GroupNorm(4, out_chans)
         self.pool2_4 = nn.AvgPool2d(kernel_size=(1, 4))
-
         self.gelu2 = nn.GELU()
-
+                                
     def forward(self, x):
         x = rearrange(x, 'B N A T -> B (N A) T')
         B, NA, T = x.shape
         x = x.unsqueeze(1)
-
-        # --- Group 1 --- #
+        
+        # First layer of filtering - Group 1
         x1 = self.pool1_1(self.gelu1(self.norm1_1(self.conv1_1(x))))
         x2 = self.pool1_2(self.gelu1(self.norm1_2(self.conv1_2(x))))
         x3 = self.pool1_3(self.gelu1(self.norm1_3(self.conv1_3(x))))
         x4 = self.pool1_4(self.gelu1(self.norm1_4(self.conv1_4(x))))
-
-        # --- Group 2 --- #
+        
+        # First layer of filtering - Group 2
         x1 = self.pool2_1(self.gelu2(self.norm2_1(self.conv2_1(x1))))
         x2 = self.pool2_2(self.gelu2(self.norm2_2(self.conv2_2(x2))))
         x3 = self.pool2_3(self.gelu2(self.norm2_3(self.conv2_3(x3))))
         x4 = self.pool2_4(self.gelu2(self.norm2_4(self.conv2_4(x4))))
-
-        # --- Re-arrange --- #
+        
+        # Re-arrange
         x1 = rearrange(x1, 'B C NA T -> B NA (T C)')
         x2 = rearrange(x2, 'B C NA T -> B NA (T C)')
         x3 = rearrange(x3, 'B C NA T -> B NA (T C)')
@@ -378,16 +381,16 @@ class NeuroRVQTokenizer(nn.Module):
             n_global_electrodes=decoder_config['n_global_electrodes'], vocab_size=n_code,
             use_as_encoder=False, use_for_pretraining = False)
         
-        self.quantize_1 = ResidualVectorQuantization(num_quantizers = 16,
+        self.quantize_1 = ResidualVectorQuantization(num_quantizers = 8,
             n_embed=n_code, embedding_dim=code_dim, beta=1.0, kmeans_init=True, decay=0.99,
         )
-        self.quantize_2 = ResidualVectorQuantization(num_quantizers = 16,
+        self.quantize_2 = ResidualVectorQuantization(num_quantizers = 8,
             n_embed=n_code, embedding_dim=code_dim, beta=1.0, kmeans_init=True, decay=0.99,
         )
-        self.quantize_3 = ResidualVectorQuantization(num_quantizers = 16,
+        self.quantize_3 = ResidualVectorQuantization(num_quantizers = 8,
             n_embed=n_code, embedding_dim=code_dim, beta=1.0, kmeans_init=True, decay=0.99,
         )
-        self.quantize_4 = ResidualVectorQuantization(num_quantizers = 16,
+        self.quantize_4 = ResidualVectorQuantization(num_quantizers = 8,
             n_embed=n_code, embedding_dim=code_dim, beta=1.0, kmeans_init=True, decay=0.99,
         )
 
