@@ -22,7 +22,9 @@
 <sup>5</sup>Aristotle University of Thessaloniki, Greece <br>
 <sup>6</sup>Northeastern University London, United Kingdom 
 
-This is the official implementation of **NeuroRVQ**, a foundation model for biosignals powered by a state-of-the-art biosignal tokenizer
+This is the official implementation of **NeuroRVQ**, a foundation model for biosignals powered by a state-of-the-art biosignal tokenizer. 
+
+Visit the official website for more information: https://neurorvq.github.io
 
 </div>
 
