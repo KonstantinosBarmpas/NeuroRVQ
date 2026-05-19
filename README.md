@@ -4,7 +4,7 @@
 
 # NeuroRVQ: Multi-Scale Biosignal Tokenization for Generative Foundation Models
 
-<a href='https://arxiv.org/abs/2510.13068'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
+<a href='https://arxiv.org/abs/2510.13068v4'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
 <a href='https://huggingface.co/ntinosbarmpas/NeuroRVQ'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a>
 
 [Konstantinos Barmpas](https://www.barmpas.com)<sup>1,2</sup> &emsp; [Na Lee](https://www.linkedin.com/in/na-lee-57777387/)<sup>1,2</sup> &emsp; [Dimitrios Chalatsis](http://dhalatsis.github.io)<sup>1</sup> &emsp; [William Raftery](https://www.linkedin.com/in/will-raf/)<sup>1</sup> &emsp;
