@@ -10,17 +10,17 @@
 [Konstantinos Barmpas](https://www.barmpas.com)<sup>1,2</sup> &emsp; [Na Lee](https://www.linkedin.com/in/na-lee-57777387/)<sup>1,2</sup> &emsp; [Dimitrios Chalatsis](http://dhalatsis.github.io)<sup>1</sup> &emsp; [William Raftery](https://www.linkedin.com/in/will-raf/)<sup>1</sup> &emsp;
 
 
-[Yannis Panagakis](http://users.uoa.gr/~yannisp/)<sup>2,3,4</sup> &emsp; [Dimitrios Adamos](https://profiles.imperial.ac.uk/d.adamos)<sup>1,2</sup> &emsp; [Nikolaos Laskaris](https://people.auth.gr/laskaris/?lang=en)<sup>2,6</sup>  &emsp; 
+[Yannis Panagakis](http://users.uoa.gr/~yannisp/)<sup>2,3,4</sup> &emsp; [Dimitrios Adamos](https://profiles.imperial.ac.uk/d.adamos)<sup>1,2</sup> &emsp; [Nikolaos Laskaris](https://people.auth.gr/laskaris/?lang=en)<sup>2,5</sup>  &emsp; 
 
-[Alexandros Koliousis](https://akoliousis.com)<sup>5</sup> &emsp; [Dario Farina](https://profiles.imperial.ac.uk/d.farina)<sup>1</sup> &emsp;
+[Alexandros Koliousis](https://akoliousis.com)<sup>6</sup> &emsp; [Dario Farina](https://profiles.imperial.ac.uk/d.farina)<sup>1</sup> &emsp;
 [Stefanos Zafeiriou](https://profiles.imperial.ac.uk/s.zafeiriou)<sup>1,2</sup>  
 
 <sup>1</sup>Imperial College London, United Kingdom <br>
 <sup>2</sup>Cogitat, United Kingdom <br>
 <sup>3</sup>National and Kapodistrian University of Athens, Greece <br>
 <sup>4</sup>Archimedes Research Unit, Greece <br>
-<sup>5</sup>Northeastern University London, United Kingdom <br>
-<sup>6</sup>Aristotle University of Thessaloniki, Greece 
+<sup>5</sup>Aristotle University of Thessaloniki, Greece <br>
+<sup>6</sup>Northeastern University London, United Kingdom 
 
 This is the official implementation of **NeuroRVQ**, a foundation model for biosignals powered by a state-of-the-art biosignal tokenizer
 
