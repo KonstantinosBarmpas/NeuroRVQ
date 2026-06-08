@@ -43,6 +43,7 @@ Biosignals such as electroencephalography (EEG), electrocardiography (ECG), and 
 | **EEG** | ✅ |
 | **EMG** | ✅ |
 | **ECG** | ✅ |
+| **PPG** | ✅ |
 
 | Model Version | Parameters | Modality | Trained Models <a href='https://huggingface.co/ntinosbarmpas/NeuroRVQ'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a> | 
 | :--- | :--- | :--- | :--- |
@@ -52,12 +53,13 @@ Biosignals such as electroencephalography (EEG), electrocardiography (ECG), and 
 | **NeuroRVQ-EMG-foundation-model-v1** | 6 Million | EMG | NeuroRVQ_EMG_foundation_model_v1.pt |
 | **NeuroRVQ-ECG-tokenizer-v1** | 76 Million | ECG | NeuroRVQ_ECG_tokenizer_v1.pt |
 | **NeuroRVQ-ECG-foundation-model-v1** | 6 Million | ECG | NeuroRVQ-ECG-foundation-model-v1 |
+| **NeuroRVQ-PPG-tokenizer-v1** | 76 Million | PPG | NeuroRVQ_PPG_tokenizer_v1.pt |
 
 ## Tokenization / Reconstruction Capabilities
 
-| EEG | ECG | EMG |
-|:---:|:---:|:---:|
-| <img src="images/eeg.png" width="300"/> | <img src="images/ecg.png" width="300"/> | <img src="images/emg.png" width="350"/> |
+| EEG | ECG | EMG | PPG |
+|:---:|:---:|:---:|:---:|
+| <img src="images/eeg.png" width="300"/> | <img src="images/ecg.png" width="300"/> | <img src="images/emg.png" width="350"/> | <img src="images/ppg.png" width="350"/> |
 
 ## Downstream Performance
 
@@ -117,6 +119,7 @@ hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/fo
 hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="example_files/eeg_sample/example_eeg_file.xdf", local_dir="./")
 hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/tokenizers/NeuroRVQ_ECG_tokenizer_v1.pt", local_dir="./")
 hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/foundation_models/NeuroRVQ_ECG_foundation_model_v1.pt", local_dir="./")
+hf_hub_download(repo_id="ntinosbarmpas/NeuroRVQ", filename="pretrained_models/tokenizers/NeuroRVQ_PPG_tokenizer_v1.pt", local_dir="./")
 ```
 
 ## Model Loading / Usage
@@ -191,6 +194,18 @@ from inference.run.NeuroRVQ_ECG_FM_example import load_neurorqv_fm
 
 load_neurorqv_fm(fine_tuning=False, verbose=True,
                      model_path = './pretrained_models/foundation_models/NeuroRVQ_ECG_foundation_model_v1.pt')
+```
+
+Load PPG tokenizer and see reconstruction results (downloads and processes samples from the BIDMC PPG dataset). Example for PPG tokenizer:
+```python
+
+from inference.run.NeuroRVQ_PPG_tokenizer_example import load_neurorqv_tokenizer
+
+# Set run_example=True and plot_results=True to see reconstruction results
+# Checkout the load_neurorqv_tokenizer() function to load and use tokenizer
+
+load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True,
+                            model_path='./pretrained_models/tokenizers/NeuroRVQ_PPG_tokenizer_v1.pt')
 ```
 
 ## Citation
