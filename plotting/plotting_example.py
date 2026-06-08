@@ -99,6 +99,15 @@ def process_and_plot(originals, reconstructions, fs, mode):
             "Band 4 (30-40 Hz)": (30, 40),
             "Band 5 (40-50 Hz)": (40, 50),
         }
+    elif mode=="PPG":
+        # Define PPG bands
+        bands = {
+            "Band 1 (0.5–1 Hz)": (0.5, 1),
+            "Band 2 (1–3 Hz)": (1, 3),
+            "Band 3 (3-5 Hz)": (3, 5),
+            "Band 4 (5-8 Hz)": (5, 8),
+            "Band 5 (8-10 Hz)": (8, 10),
+        }
 
     # Plot
     plot_reconstructions(originals_np, reconstructions_np, fs, bands)
