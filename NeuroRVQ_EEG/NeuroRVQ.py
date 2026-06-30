@@ -337,7 +337,11 @@ class NeuroRVQFM(nn.Module):
         else:
             # ONLY in Fine-Tune
             x = torch.concat([x1,x2,x3,x4], dim=-1)
-            return self.head(self.fc_norm(x.mean(1))), _
+            # Flatten option 
+            x = x.flatten(1)
+            # Mean option
+            # x = x.mean(1)
+            return self.head(self.fc_norm(x)), _
 
 
 class NeuroRVQTokenizer(nn.Module):
