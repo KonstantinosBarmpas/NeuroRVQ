@@ -217,12 +217,15 @@ class NeuroRVQFM(nn.Module):
     # Get classification head
     def get_classifier(self):
         return self.head
-
-    # Reset the classification head
-    def reset_classifier(self, num_classes):
+    
+    def reset_classifier(self, num_classes, num_channels=1, n_time=1):
         self.num_classes = num_classes
-        self.fc_norm = nn.LayerNorm(self.embed_dim * 4) # multiply dim by 4 for concat [x1,x2,x3,x4] 
-        self.head = nn.Linear(self.embed_dim * 4, num_classes) if num_classes > 0 else nn.Identity()
+        # Flatten option
+        head_embed_dim = self.embed_dim * 4 * num_channels * n_time
+        # Mean option
+        # head_embed_dim = self.embed_dim * 4
+        self.fc_norm = nn.LayerNorm(head_embed_dim)
+        self.head = nn.Linear(head_embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
     @torch.jit.ignore
     def no_weight_decay(self):
