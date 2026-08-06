@@ -48,7 +48,8 @@ class NeuroRVQModule():
 
     def fit(self, train_dataset, validation_dataset, batch_size, epochs):
         d_out = self.n_out if self.n_out > 2 else 1
-        self.model.reset_classifier(d_out)
+        # self.model.reset_classifier(d_out)
+        self.model.reset_classifier(d_out, num_channels=len(self.chnames), n_time=self.n_time)
         self.model.cuda()
         # Set model parameter groups with layer_decay on the learning rate
         if self.train_head_only:
