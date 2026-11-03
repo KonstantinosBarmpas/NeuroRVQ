@@ -72,9 +72,7 @@ Biosignals such as electroencephalography (EEG), electrocardiography (ECG), and 
 | LaBraM (5.8M) | 63.0±7.6 | 82.2±4.0 | 52.6±2.6 | 65.2±3.7 | 79.9±4.7 |
 | **NeuroRVQ-EEG†** (5.9M) | **70.0±7.3** | **87.6±3.3** | 57.4±2.7 | **72.8±2.8** | **86.9±2.6** |
 
-We used the benchmark presented in IEEE MLSP 2025 Paper [Assessing the Capabilities of Large Brainwave Foundation Models](https://ieeexplore.ieee.org/document/11204282).
-
-[Open-Source Benchmark Code Available](https://github.com/dykestra/EEG-Benchmarking)
+We used the benchmark presented in IEEE MLSP 2025 Paper [Assessing the Capabilities of Large Brainwave Foundation Models](https://ieeexplore.ieee.org/document/11204282) ([Open-Source Benchmark Code Available](https://github.com/dykestra/EEG-Benchmarking))
 
 ### ECG — PTB-XL Classification
 
