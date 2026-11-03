@@ -108,7 +108,7 @@ pip install -r requirements.txt
 ```
 
 ## Download Models
-The models and the sample biosignal for reconstruction demos can be downloaded manually from [HuggingFace]() or using python:
+The models and the sample biosignal for reconstruction demos can be downloaded manually from [HuggingFace](https://huggingface.co/ntinosbarmpas/NeuroRVQ) or using python:
 ```python
 from huggingface_hub import hf_hub_download
 
