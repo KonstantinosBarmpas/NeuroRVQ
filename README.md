@@ -4,6 +4,7 @@
 
 # NeuroRVQ: Multi-Scale Biosignal Tokenization for Generative Foundation Models
 
+<a href='https://neurips.cc/virtual/2026/poster/XXXXX'><img src='https://img.shields.io/badge/NeurIPS-2026-blue'></a>
 <a href='https://arxiv.org/abs/2510.13068v4'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
 <a href='https://huggingface.co/ntinosbarmpas/NeuroRVQ'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a>
 
@@ -38,65 +39,64 @@ Biosignals such as electroencephalography (EEG), electrocardiography (ECG), and 
 
 ## Model and Modalities
 
-| Modality | Support |
-| :--- | :--- |
-| **EEG** | ✅ |
-| **EMG** | ✅ |
-| **ECG** | ✅ |
-| **PPG** | ✅ |
-
-| Model Version | Parameters | Modality | Trained Models <a href='https://huggingface.co/ntinosbarmpas/NeuroRVQ'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a> | 
-| :--- | :--- | :--- | :--- |
-| **NeuroRVQ-EEG-tokenizer-v1** | 76 Million | EEG | NeuroRVQ_EEG_tokenizer_v1.pt |
-| **NeuroRVQ-EEG-foundation-model-v1** | 6 Million | EEG | NeuroRVQ_EEG_foundation_model_v1.pt |
-| **NeuroRVQ-EMG-tokenizer-v1** | 144 Million | EMG | NeuroRVQ_EMG_tokenizer_v1.pt |
-| **NeuroRVQ-EMG-foundation-model-v1** | 6 Million | EMG | NeuroRVQ_EMG_foundation_model_v1.pt |
-| **NeuroRVQ-ECG-tokenizer-v1** | 76 Million | ECG | NeuroRVQ_ECG_tokenizer_v1.pt |
-| **NeuroRVQ-ECG-foundation-model-v1** | 300k | ECG | NeuroRVQ_ECG_foundation_model_v1.pt |
-| **NeuroRVQ-PPG-tokenizer-v1** | 76 Million | PPG | NeuroRVQ_PPG_tokenizer_v1.pt |
+| Model Version | Modality | Trained Models <a href='https://huggingface.co/ntinosbarmpas/NeuroRVQ'><img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-orange'></a> | 
+| :--- | :--- | :--- |
+| **NeuroRVQ-EEG-tokenizer-v1** | EEG | NeuroRVQ_EEG_tokenizer_v1.pt |
+| **NeuroRVQ-EEG-foundation-model-v1** | EEG | NeuroRVQ_EEG_foundation_model_v1.pt |
+| **NeuroRVQ-EMG-tokenizer-v1** | EMG | NeuroRVQ_EMG_tokenizer_v1.pt |
+| **NeuroRVQ-EMG-foundation-model-v1** | EMG | NeuroRVQ_EMG_foundation_model_v1.pt |
+| **NeuroRVQ-ECG-tokenizer-v1** | ECG | NeuroRVQ_ECG_tokenizer_v1.pt |
+| **NeuroRVQ-ECG-foundation-model-v1** | ECG | NeuroRVQ_ECG_foundation_model_v1.pt |
+| **NeuroRVQ-PPG-tokenizer-v1** | PPG | NeuroRVQ_PPG_tokenizer_v1.pt |
 
 ## Tokenization / Reconstruction Capabilities
 
 | EEG | ECG | EMG | PPG |
 |:---:|:---:|:---:|:---:|
-| <img src="images/eeg.png" width="300"/> | <img src="images/ecg.png" width="300"/> | <img src="images/emg.png" width="350"/> | <img src="images/ppg.png" width="350"/> |
+| <img src="images/eeg.png" width="300"/> | <img src="images/ecg.png" width="300"/> | <img src="images/emg.png" width="300"/> | <img src="images/ppg.png" width="300"/> |
 
 ## Downstream Performance
 
-### EEG
+Best results are in **bold**, second best are <u>underlined</u>.
 
-| Model      | Motor | ERP | Memory | Sleep* | Eyes | Mean | Size |
-|-----------|-------|------|---------|---------|-------|--------|-------|
-| NeuroGPT  | <u>0.682±0.083</u> | 0.757±0.048 | **0.597±0.029** | <u>0.674±0.033</u> | 0.827±0.036 | <u>0.707±0.046</u> | 79.5M |
-| CBraMod   | 0.614±0.104 | 0.777±0.052 | <u>0.574±0.038</u> | 0.635±0.041 | <u>0.839±0.041</u> | 0.688±0.055 | 4.9M |
-| BIOT      | 0.443±0.079 | 0.500±0.000 | 0.510±0.018 | -- | 0.763±0.049 | -- | 3.2M |
-| MIRepNet  | 0.689±0.086 | -- | -- | -- | -- | -- | -- |
-| LaBraM    | 0.630±0.076 | <u>0.822±0.040</u> | 0.526±0.026 | 0.652±0.037 | 0.799±0.047 | 0.686±0.045 | 5.8M |
-| EEGPT     | 0.313±0.035 | 0.668±0.146 | 0.520±0.017 | 0.634±0.044 | 0.797±0.037 | 0.587±0.056 | 25.7M |
-| **NeuroRVQ**  | **0.700±0.073** | **0.876±0.033** | <u>0.574±0.027</u> | **0.728±0.028** | **0.869±0.026** | **0.749±0.037** | 5.9M |
+### EEG — Five Classification Tasks
+
+| Model (Backbone Params) | Motor | ERP | Memory | Sleep | Eyes |
+|---|---|---|---|---|---|
+| BIOT (3.2M) | 44.3±7.9 | 50.0±0.0 | 51.0±1.8 | – | 76.3±4.9 |
+| MIRepNet (5.2M) | 68.9±8.6 | – | – | – | – |
+| CBraMod (4.9M) | 61.4±10.4 | 77.7±5.2 | 57.4±3.8 | 63.5±4.1 | 83.9±4.1 |
+| EEGPT (25.7M) | 31.3±3.5 | 66.8±14.6 | 52.0±1.7 | 63.4±4.4 | 79.7±3.7 |
+| NeuroGPT (79.5M) | 68.2±8.3 | 75.7±4.8 | **59.7±2.9** | <u>67.4±3.3</u> | 82.7±3.6 |
+| CSBrain (4.9M) | 67.1±11.1 | 76.5±5.7 | 57.0±3.5 | 67.2±3.8 | 81.9±4.0 |
+| REVE (69.2M) | <u>69.4±10.5</u> | <u>82.6±4.3</u> | <u>59.3±3.2</u> | 62.9±3.5 | 79.9±3.4 |
+| BrainOmni (37.8M) | 58.5±5.8 | 72.3±4.1 | 51.8±2.3 | 57.6±5.5 | <u>85.2±2.2</u> |
+| LaBraM (5.8M) | 63.0±7.6 | 82.2±4.0 | 52.6±2.6 | 65.2±3.7 | 79.9±4.7 |
+| **NeuroRVQ-EEG†** (5.9M) | **70.0±7.3** | **87.6±3.3** | 57.4±2.7 | **72.8±2.8** | **86.9±2.6** |
 
 We used the benchmark presented in IEEE MLSP 2025 Paper [Assessing the Capabilities of Large Brainwave Foundation Models](https://ieeexplore.ieee.org/document/11204282).
 
 [Open-Source Benchmark Code Available](https://github.com/dykestra/EEG-Benchmarking)
 
-### ECG
+### ECG — PTB-XL Classification
 
-| Model | 5-class Accuracy | 5-class BAcc | 43-class Accuracy | 43-class BAcc |
+| Model (Backbone Params) | 5-class Accuracy | 5-class BAcc | 43-class Accuracy | 43-class BAcc |
 |---|---|---|---|---|
-| HuBERT-ECG | 72.60 | 60.23 | 62.49 | 20.71 |
-| ECGFounder | **76.55** | **65.39** | 65.51 | 28.96 |
-| **NeuroRVQ-ECG** | 70.19 | 64.50 | **79.17** | **58.33** |
+| HuBERT-ECG (30.2M) | <u>72.60</u> | 60.23 | 62.49 | 20.71 |
+| ECGFounder (30.7M) | **76.55** | **65.39** | <u>65.51</u> | <u>28.96</u> |
+| **NeuroRVQ-ECG** (264K) | 70.19 | <u>64.50</u> | **79.17** | **58.33** |
 
 [Open-Source Benchmark Code Available](https://github.com/dykestra/Biosignal-Benchmarking)
 
-### EMG
+### EMG — Four Classification Tasks
 
-| Model | DG BAcc ↑ | DG CLER ↓ | EPN-612 Acc | EPN-612 F1 | NinaPro DB5 Acc | NinaPro DB5 F1 | UCI-EMG Acc | UCI-EMG F1 |
+| Model (Backbone Params) | Discrete Gestures BAcc ↑ | Discrete Gestures CLER ↓ | EPN-612 Acc | EPN-612 F1 | NinaPro DB5 Acc | NinaPro DB5 F1 | UCI-EMG Acc | UCI-EMG F1 |
 |---|---|---|---|---|---|---|---|---|
-| PhysioWave | 54.70 | 64.20 | 90.30 | 90.35 | 24.91 | 22.95 | 56.52 | 55.76 |
-| TinyMyo | 39.70 | 64.20 | 84.68 | 84.68 | 25.26 | 23.29 | 85.99 | 85.66 |
-| **NeuroRVQ-EMG** | **70.80** | **27.60** | **94.65** | **94.66** | **41.36** | **38.76** | **89.43** | **89.28** |
+| PhysioWave (4.8M) | 54.70±0.0 | 64.20±0.9 | 90.30±0.6 | 90.35±0.3 | 24.91±2.5 | 22.95±2.5 | 56.52±2.4 | 55.76±2.8 |
+| TinyMyo (3.6M) | 39.70 | 64.20 | 84.68±1.9 | 84.68±1.9 | 25.26±4.5 | 23.29±4.9 | <u>85.99±0.4</u> | <u>85.66±0.4</u> |
+| **NeuroRVQ-EMG** (5.9M) | **70.80±0.6** | **27.60±0.8** | **94.65±0.4** | **94.66±0.5** | **41.36±2.8** | **38.76±3.7** | **89.43±1.1** | **89.28±1.1** |
 
+[Open-Source Benchmark Code Available](https://github.com/willraf/emg-fm-bench)
 
 ## Installation
 ```bash
@@ -132,8 +132,7 @@ from inference.run.NeuroRVQ_EEG_tokenizer_example import load_neurorqv_tokenizer
 # Set run_example=True and plot_results=True to see reconstruction results
 # Checkout the load_neurorqv_tokenizer() function to load and use tokenizer
 
-load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True,
-                            model_path='./pretrained_models/tokenizers/NeuroRVQ_EEG_tokenizer_v1.pt')
+load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True, model_path='./pretrained_models/tokenizers/NeuroRVQ_EEG_tokenizer_v1.pt')
 ```
 
 Load foundation model and see an example for fine-tuning. Example for EEG foundation model:
@@ -143,8 +142,7 @@ from inference.run.NeuroRVQ_EEG_FM_example import load_neurorqv_fm
 
 # Checkout the load_neurorqv_fm() function to see the correct model loading
 
-load_neurorqv_fm(verbose=True,
-                     model_path = './pretrained_models/foundation_models/NeuroRVQ_EEG_foundation_model_v1.pt')
+load_neurorqv_fm(verbose=True, model_path = './pretrained_models/foundation_models/NeuroRVQ_EEG_foundation_model_v1.pt')
 ```
 
 Load EMG tokenizer and see reconstruction results (downloads mini version of emg2pose). Example for EMG tokenizer:
@@ -155,8 +153,7 @@ from inference.run.NeuroRVQ_EMG_tokenizer_example import load_neurorqv_tokenizer
 # Set run_example=True and plot_results=True to see reconstruction results
 # Checkout the load_neurorqv_tokenizer() function to load and use tokenizer
 
-load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True,
-                            model_path='./pretrained_models/tokenizers/NeuroRVQ_EMG_tokenizer_v1.pt')
+load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True, model_path='./pretrained_models/tokenizers/NeuroRVQ_EMG_tokenizer_v1.pt')
 ```
 
 Load foundation model and see an example for fine-tuning. Example for EMG foundation model:
@@ -166,8 +163,7 @@ from inference.run.NeuroRVQ_EMG_FM_example import load_neurorqv_fm
 
 # Checkout the load_neurorqv_fm() function to see the correct model loading
 
-load_neurorqv_fm(verbose=True,
-                     model_path = './pretrained_models/foundation_models/NeuroRVQ_EMG_foundation_model_v1.pt')
+load_neurorqv_fm(verbose=True, model_path = './pretrained_models/foundation_models/NeuroRVQ_EMG_foundation_model_v1.pt')
 ```
 
 Load ECG tokenizer and see reconstruction results (downloads and processes ptb-xl dataset). Example for ECG tokenizer:
@@ -178,8 +174,7 @@ from inference.run.NeuroRVQ_ECG_tokenizer_example import load_neurorqv_tokenizer
 # Set run_example=True and plot_results=True to see reconstruction results
 # Checkout the load_neurorqv_tokenizer() function to load and use tokenizer
 
-load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True,
-                            model_path='./pretrained_models/tokenizers/NeuroRVQ_ECG_tokenizer_v1.pt')
+load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True, model_path='./pretrained_models/tokenizers/NeuroRVQ_ECG_tokenizer_v1.pt')
 ```
 
 Load foundation model and see an example for fine-tuning. Example for ECG foundation model:
@@ -189,8 +184,7 @@ from inference.run.NeuroRVQ_ECG_FM_example import load_neurorqv_fm
 
 # Checkout the load_neurorqv_fm() function to see the correct model loading
 
-load_neurorqv_fm(verbose=True,
-                     model_path = './pretrained_models/foundation_models/NeuroRVQ_ECG_foundation_model_v1.pt')
+load_neurorqv_fm(verbose=True, model_path = './pretrained_models/foundation_models/NeuroRVQ_ECG_foundation_model_v1.pt')
 ```
 
 Load PPG tokenizer and see reconstruction results (downloads and processes samples from the BIDMC PPG dataset). Example for PPG tokenizer:
@@ -201,8 +195,7 @@ from inference.run.NeuroRVQ_PPG_tokenizer_example import load_neurorqv_tokenizer
 # Set run_example=True and plot_results=True to see reconstruction results
 # Checkout the load_neurorqv_tokenizer() function to load and use tokenizer
 
-load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True,
-                            model_path='./pretrained_models/tokenizers/NeuroRVQ_PPG_tokenizer_v1.pt')
+load_neurorqv_tokenizer(run_example=True, plot_results=True, verbose=True, model_path='./pretrained_models/tokenizers/NeuroRVQ_PPG_tokenizer_v1.pt')
 ```
 
 ## Citation
