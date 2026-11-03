@@ -70,7 +70,7 @@ Biosignals such as electroencephalography (EEG), electrocardiography (ECG), and 
 | REVE (69.2M) | <u>69.4±10.5</u> | <u>82.6±4.3</u> | <u>59.3±3.2</u> | 62.9±3.5 | 79.9±3.4 |
 | BrainOmni (37.8M) | 58.5±5.8 | 72.3±4.1 | 51.8±2.3 | 57.6±5.5 | <u>85.2±2.2</u> |
 | LaBraM (5.8M) | 63.0±7.6 | 82.2±4.0 | 52.6±2.6 | 65.2±3.7 | 79.9±4.7 |
-| **NeuroRVQ-EEG†** (5.9M) | **70.0±7.3** | **87.6±3.3** | 57.4±2.7 | **72.8±2.8** | **86.9±2.6** |
+| **NeuroRVQ-EEG** (5.9M) | **70.0±7.3** | **87.6±3.3** | 57.4±2.7 | **72.8±2.8** | **86.9±2.6** |
 
 We used the benchmark presented in IEEE MLSP 2025 Paper [Assessing the Capabilities of Large Brainwave Foundation Models](https://ieeexplore.ieee.org/document/11204282) ([Open-Source Benchmark Code Available](https://github.com/dykestra/EEG-Benchmarking))
 
