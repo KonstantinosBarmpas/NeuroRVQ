@@ -5,8 +5,8 @@ import numpy as np
 '''
 Example of how to preprocess an EEG recording
 Notch filter: 50., 60., 100.Hz
-High Pass: 45Hz
-Low Pass: 0.5Hz
+Band-Pass: 0.5-45 Hz (3rd-order Butterworth; upper edge applied at 44.5 Hz)
+Clip: +/-500
 Resample at: 200Hz
 '''
 def preprocessing_eeg(data_path):
@@ -49,7 +49,18 @@ Function to create patches for NeuroRVQ
 '''
 def create_patches(eeg_signal, maximum_patches, patch_size, channels_use):
     n, c, t = eeg_signal.shape  # Batch / trials, channels, time
-    n_time = (maximum_patches // len(channels_use))
-    eeg_signal = eeg_signal[:, :, :n_time * patch_size]
-    eeg_signal_patches = eeg_signal[:, channels_use, :]
+    channels_use = np.asarray(channels_use, dtype=bool)
+    if channels_use.shape[0] != c:
+        raise ValueError(f"channels_use has length {channels_use.shape[0]}, but signal has {c} channels")
+
+    n_keep = int(channels_use.sum())
+    if n_keep == 0:
+        raise ValueError("None of the channels match the model's vocabulary channel list")
+
+    # Patches per channel: limited by the model's max input tokens and by the recording length
+    n_time = min(maximum_patches // n_keep, t // patch_size)
+    if n_time == 0:
+        raise ValueError(f"Signal too short: need at least {patch_size} samples, got {t}")
+
+    eeg_signal_patches = eeg_signal[:, channels_use, :n_time * patch_size]
     return eeg_signal_patches, n_time

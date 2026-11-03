@@ -47,7 +47,8 @@ def load_neurorqv_tokenizer(run_example=False, plot_results=False, verbose=False
         
         temporal_embedding_ix, spatial_embedding_ix = create_embedding_ix(n_time, args['n_patches'], ch_names, ch_names_global)
         
-        oringal_signal_std, reconstructed_signal_std = tokenizer(x, temporal_embedding_ix.int().to(device), spatial_embedding_ix.int().to(device))
+        with torch.no_grad():
+            original_signal_std, reconstructed_signal_std = tokenizer(x, temporal_embedding_ix.int().to(device), spatial_embedding_ix.int().to(device))
         
         if (plot_results):
-            process_and_plot(oringal_signal_std, reconstructed_signal_std, fs=200, mode='ECG')
+            process_and_plot(original_signal_std, reconstructed_signal_std, fs=200, mode='ECG')

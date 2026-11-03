@@ -117,7 +117,7 @@ class NeuroRVQFM(nn.Module):
     """
     def __init__(self, n_patches=256, patch_size=200, in_chans=1, out_chans=8, num_classes=5,
                  embed_dim=200, depth=12, num_heads=10, mlp_ratio=4., qkv_bias=False, qk_norm=None, drop_rate=0.,
-                 attn_drop_rate=0., drop_path_rate=0., init_values=None, init_scale=0.001,
+                 attn_drop_rate=0., drop_path_rate=0., init_values=0., init_scale=0.001,
                  n_global_electrodes=127, vocab_size=8192, use_as_encoder=True, use_for_pretraining=False):
        
         super().__init__()
@@ -219,13 +219,19 @@ class NeuroRVQFM(nn.Module):
 
     # Get classification head
     def get_classifier(self):
+        if not hasattr(self, 'head'):
+            raise RuntimeError("No classification head yet: call reset_classifier(num_classes, num_channels, n_time) first")
         return self.head
 
     # Reset the classification head
-    def reset_classifier(self, num_classes):
+    def reset_classifier(self, num_classes, num_channels=1, n_time=1):
         self.num_classes = num_classes
-        self.fc_norm = nn.LayerNorm(self.embed_dim * 4) # multiply dim by 4 for concat [x1,x2,x3,x4] 
-        self.head = nn.Linear(self.embed_dim * 4, num_classes) if num_classes > 0 else nn.Identity()
+        # Flatten option
+        head_embed_dim = self.embed_dim * 4 * num_channels * n_time
+        # Mean option
+        # head_embed_dim = self.embed_dim * 4
+        self.fc_norm = nn.LayerNorm(head_embed_dim)
+        self.head = nn.Linear(head_embed_dim, num_classes) if num_classes > 0 else nn.Identity()
 
     @torch.jit.ignore
     def no_weight_decay(self):
@@ -296,10 +302,7 @@ class NeuroRVQFM(nn.Module):
                 for blk in self.blocks:
                     x = blk(x)
                     
-                if (use_for_pretraining or bool_masked_pos is not None):
-                    x = self.norm_pre(x)
-                else:
-                    x = self.norm(x)
+                x = self.norm(x)
                 # All except cls token
                 if i == 0:
                     x1 = x[:, 1:, :]
@@ -313,11 +316,7 @@ class NeuroRVQFM(nn.Module):
             # Pass the transformer blocks
             for blk in self.blocks:
                 x = blk(x)
-            if (use_for_pretraining or bool_masked_pos is not None):
-                x = self.norm_pre(x)
-            else:
-                x = self.norm(x)
-
+            x = self.norm(x)
             # All except cls token
             x = x[:, 1:, :]
 
@@ -336,9 +335,16 @@ class NeuroRVQFM(nn.Module):
                     return self.head_4(self.fc_norm_4(x)), _
         else:
             # ONLY in Fine-Tune
-            x = torch.concat([x1,x2,x3,x4], dim=-1)
-            return self.head(self.fc_norm(x.mean(1))), _
-
+            if not self.use_as_encoder:
+                raise ValueError("Classification is only supported with use_as_encoder=True")
+            if not hasattr(self, 'head'):
+                raise RuntimeError("Call reset_classifier(num_classes, num_channels, n_time) before fine-tuning")
+            x = torch.concat([x1, x2, x3, x4], dim=-1)
+            # Flatten option
+            x = x.flatten(1)
+            # Mean option
+            # x = x.mean(1)
+            return self.head(self.fc_norm(x)), _
 
 
 class NeuroRVQTokenizer(nn.Module):
@@ -462,16 +468,17 @@ class NeuroRVQTokenizer(nn.Module):
 
     @torch.jit.ignore
     def no_weight_decay(self):
-        return {'quantize.embedding.weight', 'decoder.cls_token', 'decoder.pos_embed', 'decoder.time_embed',
+        return {'decoder.cls_token', 'decoder.pos_embed', 'decoder.time_embed',
                 'encoder.cls_token', 'encoder.pos_embed', 'encoder.time_embed'}
 
     def get_number_of_tokens(self):
-        return self.quantize.n_e
+        """Vocabulary size of each codebook (every branch and RVQ level has its own codebook of this size)."""
+        return self.quantize_1.layers[0].num_tokens
 
     def get_tokens(self, data, temporal_embedding_ix, spatial_embedding_ix):
         quantize, code_ind, loss, usage_ratios = self.encode(data, temporal_embedding_ix, spatial_embedding_ix)
         # Convert [8, B*P] to [8, B, P]
-        code_inds = [code_ind_ix.view(8, data.shape[0], -1) for code_ind_ix in code_ind]
+        code_inds = [code_ind_ix.view(code_ind_ix.shape[0], data.shape[0], -1) for code_ind_ix in code_ind]
         # Stack all codebooks [4, 8, B, P]
         stacked_code_inds = torch.stack(code_inds, dim=0)
         quantize_vecs = [rearrange(quantize_ix, 'b d a c -> b (a c) d').contiguous() for quantize_ix in quantize]

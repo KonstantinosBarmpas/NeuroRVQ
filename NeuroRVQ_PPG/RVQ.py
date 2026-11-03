@@ -28,10 +28,10 @@ class ResidualVectorQuantization(nn.Module):
 
         for layer in self.layers[:n_q]:
             quantized, loss, indices = layer(residual)
-            residual = residual - quantized
-            quantized_out = quantized_out + quantized
             # Auxilatory Loss
             loss = loss + 0.4 * F.mse_loss(quantized, residual.detach())
+            residual = residual - quantized
+            quantized_out = quantized_out + quantized
 
             all_indices.append(indices)
             all_losses.append(loss)
@@ -45,23 +45,3 @@ class ResidualVectorQuantization(nn.Module):
         out_losses = out_losses.mean()
         
         return quantized_out, out_indices, out_losses, usage_ratios
-
-    def encode(self, x):
-        residual = x
-        all_indices = []
-        n_q = len(self.layers)
-        for layer in self.layers[:n_q]:
-            indices = layer.encode(residual)
-            quantized = layer.decode(indices)
-            residual = residual - quantized
-            all_indices.append(indices)
-        out_indices = torch.stack(all_indices)
-        return out_indices
-
-    def decode(self, q_indices):
-        quantized_out = torch.tensor(0.0, device=q_indices.device)
-        for i, indices in enumerate(q_indices):
-            layer = self.layers[i]
-            quantized = layer.decode(indices)
-            quantized_out = quantized_out + quantized
-        return quantized_out

@@ -160,15 +160,9 @@ class NormEMAVectorQuantizer(nn.Module):
 
         z_q = self.embedding(encoding_indices).view(z.shape)
         
-        encodings = F.one_hot(encoding_indices, self.num_tokens).type(z.dtype)     
-        
-        if not self.training:
-            with torch.no_grad():
-                cluster_size = encodings.sum(0)
-                self.all_reduce_fn(cluster_size)
-                ema_inplace(self.cluster_size, cluster_size, self.decay)
-        
         if self.training and self.embedding.update:
+            encodings = F.one_hot(encoding_indices, self.num_tokens).type(z.dtype)
+
             #EMA cluster size
 
             bins = encodings.sum(0)

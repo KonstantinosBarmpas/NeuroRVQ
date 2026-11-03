@@ -38,13 +38,13 @@ def load_neurorqv_tokenizer(run_example=False, plot_results=False, verbose=False
         x, ch_names = preprocessing_eeg('example_files/eeg_sample/example_eeg_file.xdf')
         ch_mask = np.isin(ch_names, ch_names_global)
         ch_names = ch_names[ch_mask]
-        x = x[:, ch_mask, :]
 
         x, n_time = create_patches(x, maximum_patches=args['n_patches'], patch_size=args['patch_size'], channels_use=ch_mask)
         x = torch.from_numpy(x).float().to(device)
 
         temporal_embedding_ix, spatial_embedding_ix = create_embedding_ix(n_time, args['n_patches'], ch_names, ch_names_global)
-        oringal_signal_std, reconstructed_signal_std = tokenizer(x, temporal_embedding_ix.int().to(device), spatial_embedding_ix.int().to(device))
+        with torch.no_grad():
+            original_signal_std, reconstructed_signal_std = tokenizer(x, temporal_embedding_ix.int().to(device), spatial_embedding_ix.int().to(device))
         
         if (plot_results):
-            process_and_plot(oringal_signal_std, reconstructed_signal_std, fs=args['patch_size'], mode='EEG')
+            process_and_plot(original_signal_std, reconstructed_signal_std, fs=200, mode='EEG')
