@@ -6,8 +6,6 @@ from NeuroRVQ_EEG.NeuroRVQ_modules import get_encoder_decoder_params
 from inference.modules.NeuroRVQ_EEG_tokenizer_inference_modules import ch_names_global, create_embedding_ix, check_model_eval_mode
 from functools import partial
 from torch import nn
-from fine_tuning.utils import get_logger, get_model
-from fine_tuning.data import load_benchmark
 import skorch
 
 def perform_finetuning(benchmarks, metrics, args, foundation_model):
@@ -97,11 +95,3 @@ def load_neurorqv_fm(fine_tuning=False, verbose=False,
 
     if (verbose):
         print(f"Missing keys: {missing_keys},\nUnexpected keys: {unexpected_keys}")
-
-    if (fine_tuning):
-        # Select benchmark datasets
-        benchmarks = ["High Gamma"]
-        # Select evaluation metrics
-        # NOTE: metrics not included in this list will need to be implemented in the module for each model
-        metrics = ["accuracy", "bacc"]
-        perform_finetuning(benchmarks, metrics, args, foundation_model)
