@@ -340,6 +340,7 @@ class NeuroRVQFM(nn.Module):
             if not hasattr(self, 'head'):
                 raise RuntimeError("Call reset_classifier(num_classes, num_channels, n_time) before fine-tuning")
             x = torch.concat([x1, x2, x3, x4], dim=-1)
+            x = torch.concat([x1,x2,x3,x4], dim=-1)
             # Flatten option
             x = x.flatten(1)
             # Mean option
