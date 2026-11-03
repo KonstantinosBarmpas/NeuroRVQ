@@ -6,56 +6,8 @@ from NeuroRVQ_ECG.NeuroRVQ_modules import get_encoder_decoder_params
 from inference.modules.NeuroRVQ_ECG_tokenizer_inference_modules import ch_names_global, create_embedding_ix, check_model_eval_mode
 from functools import partial
 from torch import nn
-import skorch
 
-def perform_finetuning(benchmarks, metrics, args, foundation_model):
-    '''
-    Performs full finetuning on benchmarks using all data for training (no folds, no validation set)
-    Saves finetuned model, no metrics returned
-    '''
-    logger = get_logger()
-    results = {}
-    for benchmark in benchmarks:
-        # Load data stored in "./fine_tuning/data" folder - see example in data.py
-        b = load_benchmark(benchmark,  './', "NeuroRVQ")
-        X, sbj_id, y, ch_names = b.get_data()
-        n_outputs = len(np.unique(y))
-        n, c, t = X.shape
-        dataset = skorch.dataset.Dataset(X[:-1], y[:-1])
-        dummy_val = skorch.dataset.Dataset(np.array([X[0]]), np.array([y[0]]))
-
-        # Make model
-        model = get_model(
-            ch_names=ch_names,
-            n_times=t,
-            n_outputs=n_outputs,
-            args = args,
-            foundation_model = foundation_model,
-            train_head_only=args['train_head_only_finetuning']
-        )
-        print(f"No. Trainable Parameters: {model.size()}")
-
-        # Finetune model
-        model.fit(
-            dataset,
-            dummy_val,
-            batch_size=args['batch_size_finetuning'],
-            epochs=args['epoch_finetuning']
-        )
-
-        # Log training results (per epoch)
-        for m in metrics:
-            results = model.results[f'train_{m}']
-            for i in range(args['epoch_finetuning']):
-                logger.report_scalar(title="Fine-Tuning NeuroRVQ", series=f'train',
-                                     value=results[i], iteration=i)
-
-        # Save model
-        torch.save(model.state_dict(), './fine_tuned_model.pt')
-
-    return
-
-def load_neurorqv_fm(fine_tuning=False, verbose=False,
+def load_neurorqv_fm(verbose=False,
                      model_path='./pretrained_models/foundation_models/NeuroRVQ_ECG_foundation_model_v1.pt'):
     # Load experiment parameters from config file
     config_stream = open("./flags/NeuroRVQ_ECG_v1.yml", 'r')

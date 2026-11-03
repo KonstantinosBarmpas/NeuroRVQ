@@ -141,10 +141,9 @@ Load foundation model and see an example for fine-tuning. Example for EEG founda
 
 from inference.run.NeuroRVQ_EEG_FM_example import load_neurorqv_fm
 
-# Checkout the load_neurorqv_fm() function with fine_tuning=False to see the correct model loading
-# See the instructions in data.py for your custom dataset before setting fine_tuning=True
+# Checkout the load_neurorqv_fm() function to see the correct model loading
 
-load_neurorqv_fm(fine_tuning=False, verbose=True,
+load_neurorqv_fm(verbose=True,
                      model_path = './pretrained_models/foundation_models/NeuroRVQ_EEG_foundation_model_v1.pt')
 ```
 
@@ -165,10 +164,9 @@ Load foundation model and see an example for fine-tuning. Example for EMG founda
 
 from inference.run.NeuroRVQ_EMG_FM_example import load_neurorqv_fm
 
-# Checkout the load_neurorqv_fm() function with fine_tuning=False to see the correct model loading
-# See the instructions in data.py for your custom dataset before setting fine_tuning=True
+# Checkout the load_neurorqv_fm() function to see the correct model loading
 
-load_neurorqv_fm(fine_tuning=False, verbose=True,
+load_neurorqv_fm(verbose=True,
                      model_path = './pretrained_models/foundation_models/NeuroRVQ_EMG_foundation_model_v1.pt')
 ```
 
@@ -189,10 +187,9 @@ Load foundation model and see an example for fine-tuning. Example for ECG founda
 
 from inference.run.NeuroRVQ_ECG_FM_example import load_neurorqv_fm
 
-# Checkout the load_neurorqv_fm() function with fine_tuning=False to see the correct model loading
-# See the instructions in data.py for your custom dataset before setting fine_tuning=True
+# Checkout the load_neurorqv_fm() function to see the correct model loading
 
-load_neurorqv_fm(fine_tuning=False, verbose=True,
+load_neurorqv_fm(verbose=True,
                      model_path = './pretrained_models/foundation_models/NeuroRVQ_ECG_foundation_model_v1.pt')
 ```
 
