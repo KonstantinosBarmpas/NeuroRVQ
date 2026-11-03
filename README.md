@@ -57,8 +57,6 @@ Biosignals such as electroencephalography (EEG), electrocardiography (ECG), and 
 
 ## Downstream Performance
 
-Best results are in **bold**, second best are <u>underlined</u>.
-
 ### EEG — Five Classification Tasks
 
 | Model (Backbone Params) | Motor | ERP | Memory | Sleep | Eyes |
