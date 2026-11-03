@@ -39,7 +39,7 @@ class PatchEmbed(nn.Module):
         
 class MultiDimentionalTemporalConv(nn.Module):
     """
-    ECG to Patch Embedding - Multidimentional Temporal Filtering
+    PPG to Patch Embedding - Multidimentional Temporal Filtering
     """
     def __init__(self, in_chans=1, out_chans=8):
         '''
@@ -47,29 +47,23 @@ class MultiDimentionalTemporalConv(nn.Module):
         out_chans: out_chans of nn.Conv2d(), determining the output dimension
         '''
         super().__init__()
-        # Inception Style Seperate Branches - Group 1 #
-        # Branch 1: >2.4 Hz assuming fs=200Hz
         self.conv1_1 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 41), padding=(0, 20))
         self.norm1_1 = nn.GroupNorm(4, out_chans)
         self.pool1_1 = nn.AvgPool2d(kernel_size=(1, 2))
 
-        # Branch 2: >3.2 Hz assuming fs=200Hz
         self.conv1_2 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 31), padding=(0, 15))
         self.norm1_2 = nn.GroupNorm(4, out_chans)
         self.pool1_2 = nn.AvgPool2d(kernel_size=(1, 2))
 
-        # Branch 3: >6 Hz assuming fs=200Hz
         self.conv1_3 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 17), padding=(0, 8))
         self.norm1_3 = nn.GroupNorm(4, out_chans)
         self.pool1_3 = nn.AvgPool2d(kernel_size=(1, 2))
 
-        # Branch 4: >11 Hz assuming fs=200Hz
         self.conv1_4 = nn.Conv2d(in_chans, out_chans, kernel_size=(1, 9), padding=(0, 4))
         self.norm1_4 = nn.GroupNorm(4, out_chans)
         self.pool1_4 = nn.AvgPool2d(kernel_size=(1, 2))
         self.gelu1 = nn.GELU()
         
-        # Inception Style Seperate Branches - Group 2 #
         self.conv2_1 = nn.Conv2d(out_chans, out_chans, kernel_size=(1, 17), padding=(0, 8))
         self.norm2_1 = nn.GroupNorm(4, out_chans)
         self.pool2_1 = nn.AvgPool2d(kernel_size=(1, 4))

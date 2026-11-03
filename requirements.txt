@@ -4,7 +4,6 @@ torch
 scikit-learn
 tqdm
 pyyaml
-skorch
 einops
 scipy
 matplotlib

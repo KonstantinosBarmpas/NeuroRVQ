@@ -52,7 +52,7 @@ Biosignals such as electroencephalography (EEG), electrocardiography (ECG), and 
 | **NeuroRVQ-EMG-tokenizer-v1** | 144 Million | EMG | NeuroRVQ_EMG_tokenizer_v1.pt |
 | **NeuroRVQ-EMG-foundation-model-v1** | 6 Million | EMG | NeuroRVQ_EMG_foundation_model_v1.pt |
 | **NeuroRVQ-ECG-tokenizer-v1** | 76 Million | ECG | NeuroRVQ_ECG_tokenizer_v1.pt |
-| **NeuroRVQ-ECG-foundation-model-v1** | 6 Million | ECG | NeuroRVQ-ECG-foundation-model-v1 |
+| **NeuroRVQ-ECG-foundation-model-v1** | 300k | ECG | NeuroRVQ_ECG_foundation_model_v1.pt |
 | **NeuroRVQ-PPG-tokenizer-v1** | 76 Million | PPG | NeuroRVQ_PPG_tokenizer_v1.pt |
 
 ## Tokenization / Reconstruction Capabilities
