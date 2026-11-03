@@ -2,7 +2,7 @@
 
 <img src="images/banner.png" width="600">
 
-# NeuroRVQ: Multi-Scale Biosignal Tokenization for Generative Foundation Models
+# <img src="images/neurorvq.svg" height="28" alt="NeuroRVQ" align="absmiddle">: Multi-Scale Biosignal Tokenization for Generative Foundation Models
 
 <a href='https://neurips.cc/virtual/2026/poster/XXXXX'><img src='https://img.shields.io/badge/NeurIPS-2026-blue'></a>
 <a href='https://arxiv.org/abs/2510.13068v4'><img src='https://img.shields.io/badge/Paper-arXiv-red'></a>
